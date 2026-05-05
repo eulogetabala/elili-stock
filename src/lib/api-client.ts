@@ -83,6 +83,20 @@ class ApiClient {
   }
 
   /**
+   * En-têtes JSON + Bearer pour fetch (évite l’indexation invalide sur HeadersInit).
+   */
+  private buildJsonHeaders(options: RequestInit, accessToken: string | null): Headers {
+    const headers = new Headers(options.headers as HeadersInit | undefined);
+    if (!headers.has("Content-Type")) {
+      headers.set("Content-Type", "application/json");
+    }
+    if (accessToken) {
+      headers.set("Authorization", `Bearer ${accessToken}`);
+    }
+    return headers;
+  }
+
+  /**
    * Effectue une requête HTTP avec gestion automatique de l'authentification
    */
   private async request<T>(
@@ -92,14 +106,7 @@ class ApiClient {
     const url = `${this.baseURL}${endpoint}`;
     const accessToken = this.getAccessToken();
 
-    const headers: HeadersInit = {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    };
-
-    if (accessToken) {
-      headers['Authorization'] = `Bearer ${accessToken}`;
-    }
+    let headers = this.buildJsonHeaders(options, accessToken);
 
     let response = await fetch(url, {
       ...options,
@@ -110,7 +117,7 @@ class ApiClient {
     if (response.status === 401 && accessToken) {
       const newToken = await this.refreshAccessToken();
       if (newToken) {
-        headers['Authorization'] = `Bearer ${newToken}`;
+        headers = this.buildJsonHeaders(options, newToken);
         response = await fetch(url, {
           ...options,
           headers,
@@ -153,7 +160,7 @@ class ApiClient {
   /**
    * POST request
    */
-  async post<T>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
+  async post<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'POST',
@@ -164,7 +171,7 @@ class ApiClient {
   /**
    * PATCH request
    */
-  async patch<T>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
+  async patch<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
     return this.request<T>(endpoint, {
       ...options,
       method: 'PATCH',
@@ -190,10 +197,15 @@ class ApiClient {
     const url = `${this.baseURL}${endpoint}`;
     const accessToken = this.getAccessToken();
 
-    const headers: HeadersInit = {};
-    if (accessToken) {
-      headers['Authorization'] = `Bearer ${accessToken}`;
-    }
+    const buildUploadHeaders = (token: string | null): Headers => {
+      const h = new Headers(options?.headers as HeadersInit | undefined);
+      if (token) {
+        h.set("Authorization", `Bearer ${token}`);
+      }
+      return h;
+    };
+
+    let headers = buildUploadHeaders(accessToken);
 
     let response = await fetch(url, {
       ...options,
@@ -205,7 +217,7 @@ class ApiClient {
     if (response.status === 401 && accessToken) {
       const newToken = await this.refreshAccessToken();
       if (newToken) {
-        headers['Authorization'] = `Bearer ${newToken}`;
+        headers = buildUploadHeaders(newToken);
         response = await fetch(url, {
           ...options,
           method: 'POST',
