@@ -13,7 +13,7 @@ import ExplorationSidebar from "@/components/ui/ExplorationSidebar";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Magnetic from "@/components/ui/Magnetic";
 import AnimatedButton from "@/components/ui/AnimatedButton";
-import { ArrowRight, Sparkles, Filter as FilterIcon, Users, Globe, Award, Mail, Send, CheckCircle2, Crown, Download, Video, Music, Image as ImageIcon, FileText, ChevronDown, Play, FileCheck, MousePointer2 } from "lucide-react";
+import { ArrowRight, Sparkles, Filter as FilterIcon, Users, Globe, Award, Mail, Send, CheckCircle2, Crown, Download, Video, Music, Image as ImageIcon, FileText, ChevronDown, Play, FileCheck, MousePointer2, Instagram, Facebook, Linkedin } from "lucide-react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Asset, LicenseType, AssetCategory, AssetType } from "@/types/asset";
 import { MOCK_ASSETS } from "@/lib/mock-data";
@@ -762,30 +762,43 @@ export default function Home() {
       </section>
 
       {/* Footer Artistique - Elite Dark */}
-      <footer className="py-32 px-6 bg-[#030303] border-t border-white/5 relative">
+      <footer className="py-14 px-6 bg-[#030303] border-t border-white/5 relative">
          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row justify-between items-start gap-20 mb-24">
-                <div className="space-y-8 max-w-sm">
+            <div className="flex flex-col lg:flex-row justify-between items-start gap-8 mb-10">
+                <div className="space-y-5 max-w-sm">
                   <div className="flex items-center gap-4">
-                     <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-600 rounded-2xl flex items-center justify-center font-black shadow-2xl shadow-primary/20 box-glow-orange">
-                        <span className="text-white text-3xl font-syne">B</span>
+                     <div className="relative h-14 w-14 rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 box-glow-orange bg-white">
+                        <Image
+                          src="/logo-elili-stock.jpg"
+                          alt="Elili Stock"
+                          fill
+                          className="object-cover"
+                          sizes="56px"
+                        />
                      </div>
                      <span className="text-2xl font-black tracking-tighter text-white font-syne">Elili <span className="text-primary italic">Stock</span></span>
                   </div>
                   <p className="text-white/30 font-medium text-base leading-relaxed font-outfit">
                      L'excellence visuelle africaine, curatée pour les esprits créatifs les plus exigeants du monde entier.
                   </p>
-                  <div className="flex gap-4">
-                    {/* Social icons with glow */}
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary transition-all cursor-pointer group">
-                        <div className="w-5 h-5 bg-white/20 group-hover:bg-white rounded-md" />
+                  <div className="flex gap-3">
+                    {[
+                      { icon: Instagram, label: "Instagram" },
+                      { icon: Facebook, label: "Facebook" },
+                      { icon: Linkedin, label: "LinkedIn" },
+                    ].map(({ icon: Icon, label }) => (
+                      <div
+                        key={label}
+                        className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white/90 hover:bg-primary hover:border-primary hover:text-white transition-all cursor-pointer"
+                        aria-label={label}
+                      >
+                        <Icon size={16} />
                       </div>
                     ))}
                   </div>
                </div>
                
-               <div className="grid grid-cols-2 md:grid-cols-3 gap-20">
+               <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                   <div className="space-y-6">
                      <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-primary font-syne">Découvrir</h4>
                      <ul className="space-y-4 text-sm font-black tracking-tight text-white/40 font-syne">
@@ -805,7 +818,7 @@ export default function Home() {
                </div>
             </div>
             
-            <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
                <p className="text-[10px] text-white/20 font-black uppercase tracking-[0.4em]">
                   © 2026 Elili Stock. Tous droits réservés.
                </p>
