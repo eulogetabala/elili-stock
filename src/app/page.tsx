@@ -593,9 +593,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24">
             {[
-              { name: "Amadi Chen", role: "Photographe de Nature", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop&crop=faces", bio: "Spécialiste des paysages d'Afrique de l'Est." },
-              { name: "Zainab Okafor", role: "Vidéaste Urbain", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop&crop=faces", bio: "Capture l'énergie brute des métropoles africaines." },
-              { name: "Kwame Asante", role: "Artiste Digital", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop&crop=faces", bio: "Réinvente les motifs traditionnels en 3D." },
+              { name: "Euloge TABALA", role: "Photographe de Nature", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop&crop=faces", bio: "Spécialiste des paysages d'Afrique de l'Est." },
+              { name: "Euloge TABALA", role: "Vidéaste Urbain", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop&crop=faces", bio: "Capture l'énergie brute des métropoles africaines." },
+              { name: "Euloge TABALA", role: "Artiste Digital", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop&crop=faces", bio: "Réinvente les motifs traditionnels en 3D." },
             ].map((creator, i) => (
               <motion.div 
                 key={creator.name}
